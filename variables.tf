@@ -1,22 +1,21 @@
-variable "bucket_name" {
-  description = "Name of the S3 bucket"
-  type        = string
-}
-
 variable "region" {
   description = "AWS region"
-  type        = string
+  default     = "ap-south-1"
 }
 
-variable "acl" {
-  description = "Canned ACL (e.g. private, public-read)"
-  type        = string
-  default     = "private"
+variable "ami" {
+  default = "ami-0c02fb55956c7d316" # Example Amazon Linux 2 in ap-south-1
 }
 
-variable "versioning" {
-  description = "Enable versioning for bucket"
-  type        = bool
-  default     = false
+variable "key_name" {
+  description = "AWS key pair name"
 }
 
+variable "vm_name" {
+  description = "Name of the EC2 instance"
+  default     = "chatbot-ec2"
+}
+
+variable "bucket_name" {
+  description = "Name for S3 bucket"
+}
