@@ -2,21 +2,30 @@ provider "aws" {
   region = var.region
 }
 
-resource "aws_s3_bucket" "this" {
-  bucket = var.bucket_name
-  acl    = var.acl
-
-  tags = {
-    Name = var.bucket_name
-    ManagedBy = "Terraform"
-  }
+# --- EC2 MODULE ---
+module "ec2" {
+  source              = "./modules/ec2_module"
+  region              = var.region
+  ami                 = var.ami
+  instance_type       = "t2.micro"
+  key_name            = var.key_name
+  vm_name             = var.vm_name
+  security_group_name = "chatbot-sg"
 }
 
-resource "aws_s3_bucket_versioning" "this" {
-  bucket = aws_s3_bucket.this.id
-
-  versioning_configuration {
-    status = var.versioning ? "Enabled" : "Suspended"
-  }
+# --- S3 MODULE ---
+module "s3" {
+  source      = "./modules/s3_module"
+  bucket_name = var.bucket_name
+  region      = var.region
+  acl         = "private"
+  versioning  = true
 }
 
+output "ec2_public_ip" {
+  value = module.ec2.public_ip
+}
+
+output "s3_bucket_name" {
+  value = module.s3.bucket_name
+}
