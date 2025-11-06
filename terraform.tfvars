@@ -1,5 +1,5 @@
 region = "ap-south-1"
-ami = "ami-0c02fb55956c7d316"
+ami = "ami-052c08d70def0ac62"
 key_name = "aniket-key"
 vm_name = "chatbot-ec2"
 bucket_name = "chatbot-storage-bucket-12345"
