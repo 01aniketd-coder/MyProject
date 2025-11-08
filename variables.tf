@@ -1,21 +1,19 @@
+variable "project_name" {
+  description = "Name of the project"
+  type        = string
+}
+
+variable "environment" {
+  description = "Environment (dev, test, prod)"
+  type        = string
+}
+
 variable "region" {
-  description = "AWS region"
-  default     = "ap-south-1"
+  description = "AWS region to deploy resources"
+  type        = string
 }
 
-variable "ami" {
-  default = "ami-0c02fb55956c7d316" # Example Amazon Linux 2 in ap-south-1
-}
-
-variable "key_name" {
-  description = "AWS key pair name"
-}
-
-variable "vm_name" {
-  description = "Name of the EC2 instance"
-  default     = "chatbot-ec2"
-}
-
-variable "bucket_name" {
-  description = "Name for S3 bucket"
+variable "tags" {
+  description = "Common tags applied to all resources"
+  type        = map(string)
 }
