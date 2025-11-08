@@ -1,37 +1,16 @@
-provider "aws" {
-  region = var.region
+resource "aws_instance" "this" {
+  ami           = var.ami
+  instance_type = var.instance_type
+  subnet_id     = var.subnet_id
+  vpc_security_group_ids = [var.security_group_id]
+  key_name      = var.key_name
+
+  tags = merge(
+    var.tags,
+    {
+      "Name"        = "${var.project_name}-${var.environment}-ec2"
+      "Environment" = var.environment
+      "Project"     = var.project_name
+    }
+  )
 }
-
-# Security group
-resource "aws_security_group" "vm_sg" {
-  name        = var.security_group_name
-  description = "Allow SSH inbound traffic"
-
-  ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-# EC2 instance
-resource "aws_instance" "vm" {
-  ami                    = var.ami
-  instance_type          = var.instance_type
-  key_name               = var.key_name
-  vpc_security_group_ids = [aws_security_group.vm_sg.id]
-
-  tags = {
-    Name = var.vm_name
-  }
-}
-
