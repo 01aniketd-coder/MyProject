@@ -44,3 +44,21 @@ module "s3" {
   environment   = var.environment
   tags          = var.tags
 }
+module "iam_role" {
+  source        = "./modules/iam_role_module"
+  project_name  = var.project_name
+  environment   = var.environment
+  tags          = var.tags
+}
+
+module "lambda" {
+  source        = "./modules/lambda_module"
+  handler       = var.lambda_handler
+  runtime       = var.lambda_runtime
+  role_arn      = module.iam_role.role_arn
+  zip_file      = var.lambda_zip_file
+
+  project_name  = var.project_name
+  environment   = var.environment
+  tags          = var.tags
+}
