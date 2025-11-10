@@ -15,3 +15,7 @@ key_name      = "aniket-key"
 
 # S3 bucket name (must be unique globally)
 bucket_name   = "aniket-chatbot-bucket-948372"
+lambda_handler  = "lambda_function.lambda_handler"
+lambda_runtime  = "python3.9"
+lambda_zip_file = "function.zip"
+
