@@ -40,3 +40,17 @@ variable "bucket_name" {
   description = "Globally unique bucket name"
   type        = string
 }
+variable "lambda_handler" {
+  description = "Lambda handler"
+  type        = string
+}
+
+variable "lambda_runtime" {
+  description = "Lambda runtime"
+  type        = string
+}
+
+variable "lambda_zip_file" {
+  description = "Name of the ZIP file to upload"
+  type        = string
+}
